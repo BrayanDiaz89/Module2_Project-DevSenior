@@ -11,7 +11,7 @@ public class User {
     private String username;
     private String password;
     private UserRole role;
-    private UserActionSys[] actions = new UserActionSys[100];
+    private static UserActionSys[] actions = new UserActionSys[100];
     private UserState state;
 
     public String getFirst_name() {
@@ -66,21 +66,21 @@ public class User {
         this.actions = actions;
     }
 
-    public User(String first_name, String last_name, String username, String password, UserRole role, UserActionSys[] actions) {
+    public User(String first_name, String last_name, String username, String password, UserRole role) {
         this.first_name = first_name;
         this.last_name = last_name;
         id++;
         this.username = username;
         this.password = password;
         this.role = role;
-        this.actions = actions;
+        actions[0] = new UserActionSys(String.format("Se ha creado el usuario %s", first_name));
     }
 
-    public User(String first_name, String last_name, UserActionSys[] actions) {
+    public User(String first_name, String last_name) {
         this.first_name = first_name;
         this.last_name = last_name;
         id++;
-        this.actions = actions;
+        actions[0] = new UserActionSys(String.format("Se ha creado el usuario invitado %s", first_name));
     }
 
     public void lockUser(){

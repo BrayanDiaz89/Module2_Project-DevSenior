@@ -2,6 +2,8 @@ package service.crud;
 import model.entities.User;
 import model.enums.UserRole;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class CreateUser {
@@ -69,22 +71,61 @@ public class CreateUser {
 
     public void createUser(Scanner keyboard){
         if(!userAdminExists()){
-            Boolean validationName = true;
-            System.out.println("Módulo de creación usuario ADMIN.");
-            System.out.println("Digita tú nombre: ");
-            String nameUser = keyboard.nextLine();
-            System.out.println("Digita tú apellido: ");
-            String lastNameUser = keyboard.nextLine();
-            do {
-                System.out.println("Digita tú apodo (Inicio de sesión): ");
-                String userNameLogin = keyboard.nextLine();
-                validationName = validateUsernameExists(userNameLogin);
-            }while (!validationName);
-            System.out.println("Digita tú contraseña (Inicio de sesión): ");
-            String password = keyboard.nextLine();
-            var userRole = UserRole.ADMIN;
-            var user = new User(nameUser, lastNameUser, userNameLogin, password, userRole);
-            addUserToArrayUsers(user);
+            createFirstUserProgram(keyboard);
+        } else {
+
         }
+    }
+
+    public void createFirstUserProgram(Scanner keyboard){
+        Boolean validationName = true;
+        String userNameLogin;
+        System.out.println("Módulo de creación usuario ADMIN.");
+        List<String> basicInformationUser = requestBasicInformation(keyboard);
+        List<String> informationAuthenticateUser = requestDataForAuthentication(keyboard);
+        var userRole = UserRole.ADMIN;
+        var user = new User(basicInformationUser.get(0), basicInformationUser.get(1),
+                informationAuthenticateUser.get(0), informationAuthenticateUser.get(1), userRole);
+        addUsersToArray(user);
+    }
+
+    public void createUserDuringProgramFlow(Scanner keyboard){
+        System.out.println("Módulo de creación de usuarios.");
+        var userRole = getUserRole(keyboard);
+        if(userRole == UserRole.GUEST){
+            createUserGuest(keyboard);
+        }
+        List<String> basicInformationUser = requestBasicInformation(keyboard);
+        List<String> informationAuthenticateUser = requestDataForAuthentication(keyboard);
+        var user = new User(basicInformationUser.get(0), basicInformationUser.get(1),
+                informationAuthenticateUser.get(0), informationAuthenticateUser.get(1), userRole);
+        addUsersToArray(user);
+    }
+
+    public void createUserGuest(Scanner keyboard){
+        System.out.println("Creación de usuario invitado.");
+        List<String> basicInformationUser = requestBasicInformation(keyboard);
+        var userGuest = new User(basicInformationUser.get(0), basicInformationUser.get(1));
+    }
+
+    public List<String> requestBasicInformation(Scanner keyboard){
+        System.out.println("Digita tú nombre: ");
+        String nameUser = keyboard.nextLine();
+        System.out.println("Digita tú apellido: ");
+        String lastNameUser = keyboard.nextLine();
+        return new ArrayList<>(List.of(nameUser, lastNameUser));
+    }
+
+    public List<String> requestDataForAuthentication(Scanner keyboard){
+        Boolean validationName = true;
+        String userNameLogin;
+        do {
+            System.out.println("Digita tú apodo (Inicio de sesión): ");
+            userNameLogin = keyboard.nextLine();
+            validationName = validateUsernameExists(userNameLogin);
+        }while (!validationName);
+        System.out.println("Digita tú contraseña (Inicio de sesión): ");
+        String password = keyboard.nextLine();
+        return new ArrayList<>(List.of(userNameLogin, password));
     }
 }
