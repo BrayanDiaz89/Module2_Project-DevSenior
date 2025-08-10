@@ -78,8 +78,6 @@ public class CreateUser {
     }
 
     public void createFirstUserProgram(Scanner keyboard){
-        Boolean validationName = true;
-        String userNameLogin;
         System.out.println("Módulo de creación usuario ADMIN.");
         List<String> basicInformationUser = requestBasicInformation(keyboard);
         List<String> informationAuthenticateUser = requestDataForAuthentication(keyboard);
@@ -106,6 +104,7 @@ public class CreateUser {
         System.out.println("Creación de usuario invitado.");
         List<String> basicInformationUser = requestBasicInformation(keyboard);
         var userGuest = new User(basicInformationUser.get(0), basicInformationUser.get(1));
+        addUsersToArray(userGuest);
     }
 
     public List<String> requestBasicInformation(Scanner keyboard){
