@@ -73,7 +73,7 @@ public class CreateUser {
         if(!userAdminExists()){
             createFirstUserProgram(keyboard);
         } else {
-
+            createUserDuringProgramFlow(keyboard);
         }
     }
 
