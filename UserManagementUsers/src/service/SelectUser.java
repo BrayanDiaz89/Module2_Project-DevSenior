@@ -1,4 +1,4 @@
-package service.crud;
+package service;
 
 import model.entities.User;
 

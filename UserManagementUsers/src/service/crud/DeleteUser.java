@@ -3,11 +3,16 @@ package service.crud;
 import model.entities.User;
 import java.util.Scanner;
 
-public class DeleteUser implements SelectUser{
+public class DeleteUser {
 
     CreateUser getUsersArray = new CreateUser();
 
-    public User findUser(Scanner keyboard) {
+    public User findUserByDelete(User user, Scanner keyboard) {
+        if(!user.theCurrentUserIsAdmin(user)){
+            user.updateActionsUser(user, "Intentó eliminar usuarios. Acceso denegado.");
+            System.out.println("Permiso denegado. No eres administrador.");
+            return null;
+        }
         System.out.println("Digite el nombre del usuario (apodo): ");
         var username = keyboard.nextLine();
         var arrayUsers = getUsersArray.getUsers();
@@ -16,9 +21,11 @@ public class DeleteUser implements SelectUser{
                 var userDelete = arrayUsers[i];
                 if (validationDeleteUser(userDelete, keyboard)) {
                     arrayUsers[i] = null;
+                    user.updateActionsUser(user, String.format("Se eliminó al usuario %s", userDelete.getUsername()));
                     System.out.println("Usuario eliminado con éxito.");
                     return arrayUsers[i];
                 } else {
+                    user.updateActionsUser(user, String.format("Se canceló la operación para la eliminar al usuario: %s", userDelete.getUsername()));
                     System.out.println("Se ha cancelado la operación.");
                 }
             } else {
@@ -41,4 +48,5 @@ public class DeleteUser implements SelectUser{
             }
         }
     }
+
 }

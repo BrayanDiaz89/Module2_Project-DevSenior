@@ -14,6 +14,8 @@ public class User {
     private static UserActionSys[] actions = new UserActionSys[100];
     private UserState state;
 
+    public User(){}
+
     public String getFirst_name() {
         return first_name;
     }
@@ -62,10 +64,6 @@ public class User {
         this.role = role;
     }
 
-    public void setActions(UserActionSys[] actions) {
-        this.actions = actions;
-    }
-
     public User(String first_name, String last_name, String username, String password, UserRole role) {
         this.first_name = first_name;
         this.last_name = last_name;
@@ -81,6 +79,25 @@ public class User {
         this.last_name = last_name;
         id++;
         actions[0] = new UserActionSys(String.format("Se ha creado el usuario invitado %s", first_name));
+    }
+
+    public void enterAnAction(UserActionSys action){
+        var actionsUser = actions;
+        for(int i= 0; i < actionsUser.length; i++){
+            if(actionsUser[i] == null){
+                actionsUser[i] = action;
+            } else {
+                System.out.println("Haz llenado tu límite de acciones a registrar, debes eliminar acciones para continuar.");
+            }
+        }
+    }
+
+    public boolean theCurrentUserIsAdmin(User user){
+        return user.getRole().equals(UserRole.ADMIN);
+    }
+
+    public void updateActionsUser(User user, String messageAction){
+        user.enterAnAction(new UserActionSys(messageAction));
     }
 
     public void lockUser(){

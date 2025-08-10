@@ -9,13 +9,10 @@ import java.util.Scanner;
 public class CreateUser {
 
     private User[] users = new User[50];
+    private User user = new User();
 
     public User[] getUsers() {
         return users;
-    }
-
-    public void setUsers(User[] users) {
-        this.users = users;
     }
 
     public Boolean userAdminExists(){
@@ -116,7 +113,7 @@ public class CreateUser {
     }
 
     public List<String> requestDataForAuthentication(Scanner keyboard){
-        Boolean validationName = true;
+        Boolean validationName;
         String userNameLogin;
         do {
             System.out.println("Digita tú apodo (Inicio de sesión): ");
