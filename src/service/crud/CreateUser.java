@@ -8,16 +8,9 @@ import java.util.Scanner;
 
 public class CreateUser {
 
-    private User[] users = new User[50];
-    private User user = new User();
-
-    public User[] getUsers() {
-        return users;
-    }
-
     public Boolean userAdminExists(){
-        for(int i = 0; i < users.length; i++){
-            if(users[i] != null && users[i].getRole() == UserRole.ADMIN){
+        for(int i = 0; i < User.users.length; i++){
+            if(User.users[i] != null && User.users[i].getRole() == UserRole.ADMIN){
                 return true;
             }
         }
@@ -44,8 +37,8 @@ public class CreateUser {
     }
 
     public Boolean validateUsernameExists(String username){
-        for(int i = 0; i < users.length; i++){
-            if (users[i].getUsername().equalsIgnoreCase(username)){
+        for(int i = 0; i < User.users.length; i++){
+            if (User.users[i].getUsername().equalsIgnoreCase(username)){
                 return true;
             }
         }
@@ -54,9 +47,9 @@ public class CreateUser {
 
     public void addUsersToArray(User user){
         Boolean userAdd = false;
-        for(int i = 0; i < users.length; i++){
-            if(users[i] == null){
-                users[i] = user;
+        for(int i = 0; i < User.users.length; i++){
+            if(User.users[i] == null){
+                User.users[i] = user;
                 userAdd = true;
                 break;
             }

@@ -8,16 +8,14 @@ import java.util.Scanner;
 
 public class UpdateUser implements SelectUser {
 
-    private CreateUser getUsersArray = new CreateUser();
     private User user = new User();
 
     public User findUser(Scanner keyboard) {
         System.out.println("Digite el nombre del usuario (apodo): ");
         var username = keyboard.nextLine();
-        var arrayUsers = getUsersArray.getUsers();
-        for (int i = 0; i < arrayUsers.length; i++) {
-            if (arrayUsers != null && arrayUsers[i].getUsername().equalsIgnoreCase(username)) {
-                return arrayUsers[i];
+        for (int i = 0; i < User.users.length; i++) {
+            if (User.users != null && User.users[i].getUsername().equalsIgnoreCase(username)) {
+                return User.users[i];
             }
         }
         return null;

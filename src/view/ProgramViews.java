@@ -46,13 +46,8 @@ public class ProgramViews {
 
 
     public void programFlow(User user){
-        if(user != null){
-            var userRole = user.getRole();
-            String menuAvailable = switch (userRole){
-                case UserRole.ADMIN -> {
+        if(user != null && user.getRole() == UserRole.ADMIN){
 
-                }
-            }
         }
     }
 

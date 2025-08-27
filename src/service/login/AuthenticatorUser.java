@@ -9,17 +9,15 @@ import java.util.Scanner;
 
 public class AuthenticatorUser implements SelectUser {
 
-    CreateUser getUsersArray = new CreateUser();
     UpdateUser getMethodPasswordIsCorrect = new UpdateUser();
 
     public User findUser(Scanner keyboard){
         System.out.println("Digite el nombre del usuario (Apodo): ");
         var username = keyboard.nextLine();
-        var arrayUsers = getUsersArray.getUsers();
 
-        for(int i = 0; i < arrayUsers.length; i++) {
-            if (arrayUsers[i].getUsername().equalsIgnoreCase(username)) {
-                var user = arrayUsers[i];
+        for(int i = 0; i < User.users.length; i++) {
+            if (User.users[i].getUsername().equalsIgnoreCase(username)) {
+                var user = User.users[i];
                 System.out.printf("¡Hola %s!, seguiremos con tú contraseña", user.getUsername());
                 var validateAuth = getMethodPasswordIsCorrect.thePasswordIsCorrect(3, user, keyboard);
                 if (validateAuth) {

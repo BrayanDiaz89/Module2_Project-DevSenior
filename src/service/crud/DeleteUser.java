@@ -5,8 +5,6 @@ import java.util.Scanner;
 
 public class DeleteUser {
 
-    CreateUser getUsersArray = new CreateUser();
-
     public User findUserByDelete(User user, Scanner keyboard) {
         if(!user.theCurrentUserIsAdmin(user)){
             user.updateActionsUser(user, "Intentó eliminar usuarios. Acceso denegado.");
@@ -15,15 +13,14 @@ public class DeleteUser {
         }
         System.out.println("Digite el nombre del usuario (apodo): ");
         var username = keyboard.nextLine();
-        var arrayUsers = getUsersArray.getUsers();
-        for (int i = 0; i < arrayUsers.length; i++) {
-            if (arrayUsers != null && arrayUsers[i].getUsername().equalsIgnoreCase(username)) {
-                var userDelete = arrayUsers[i];
+        for (int i = 0; i < User.users.length; i++) {
+            if (User.users != null && User.users[i].getUsername().equalsIgnoreCase(username)) {
+                var userDelete = User.users[i];
                 if (validationDeleteUser(userDelete, keyboard)) {
-                    arrayUsers[i] = null;
+                    User.users[i] = null;
                     user.updateActionsUser(user, String.format("Se eliminó al usuario %s", userDelete.getUsername()));
                     System.out.println("Usuario eliminado con éxito.");
-                    return arrayUsers[i];
+                    return User.users[i];
                 } else {
                     user.updateActionsUser(user, String.format("Se canceló la operación para la eliminar al usuario: %s", userDelete.getUsername()));
                     System.out.println("Se ha cancelado la operación.");

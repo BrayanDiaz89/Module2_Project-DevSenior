@@ -13,6 +13,7 @@ public class User {
     private UserRole role;
     private static UserActionSys[] actions = new UserActionSys[100];
     private UserState state;
+    public static User[] users = new User[50];
 
     public User(){}
 
@@ -60,10 +61,6 @@ public class User {
         this.password = password;
     }
 
-    public void setRole(UserRole role) {
-        this.role = role;
-    }
-
     public User(String first_name, String last_name, String username, String password, UserRole role) {
         this.first_name = first_name;
         this.last_name = last_name;
@@ -105,5 +102,13 @@ public class User {
     }
     public void maximumLockUser(){
         this.state = UserState.MAX_LOCK;
+    }
+
+    public void unlockUser(){
+        this.state = UserState.ACTIVE;
+    }
+
+    public void assignedToUserRoleAdmin(){
+        this.role = UserRole.ADMIN;
     }
 }
