@@ -9,6 +9,8 @@ import java.util.Scanner;
 
 public class ArrayUsers {
 
+    public ArrayUsers(){}
+
     public static void getAllUsers(){
         System.out.println("La lista de todos los usuarios registrados es: ");
         System.out.println(Arrays.toString(User.users));
