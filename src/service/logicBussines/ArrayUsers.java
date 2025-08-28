@@ -5,83 +5,87 @@ import model.enums.UserRole;
 import model.enums.UserState;
 
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class ArrayUsers {
 
-    public ArrayUsers(){}
+    private static final User[] arrayUsers = User.users;
 
     public static void getAllUsers(){
-        System.out.println("La lista de todos los usuarios registrados es: ");
+        System.out.println("La lista de todos los usuarios registrados, con sus datos completos es: ");
         System.out.println(Arrays.toString(User.users));
     }
 
-    public User getUserByUsername(Scanner keyboard){
-        System.out.println("Digite el username: ");
-        var username = keyboard.nextLine();
-        for(int i = 0; i < User.users.length; i++){
-            if(User.users[i].getUsername().equalsIgnoreCase(username)){
-                return User.users[i];
+    public static void getListNamesOfAllUsers(){
+        System.out.println("Lista de usuarios registrados: ");
+        for(int i = 0; i < arrayUsers.length; i++){
+            var fullName = arrayUsers[i].getFirst_name()+ " "+ arrayUsers[i].getLast_name();
+            System.out.println(fullName);
+        }
+    }
+
+    public static User getUserByUsername(String username){
+        for(int i = 0; i < arrayUsers.length; i++){
+            if(arrayUsers[i].getUsername().equalsIgnoreCase(username)){
+                return arrayUsers[i];
             }
         }
         return null;
     }
 
-    public User getUserById(Scanner keyboard){
-        System.out.println("Digite el id del usuario: ");
-        var idUser = keyboard.nextInt();
-        for(int i = 0; i < User.users.length; i++){
-            if(User.users[i].getId() == idUser){
-                return User.users[i];
+    public static User getUserById(Integer idUser){
+        for(int i = 0; i < arrayUsers.length; i++){
+            if(Objects.equals(arrayUsers[i].getId(), idUser)){
+                return arrayUsers[i];
             }
         }
         return null;
     }
 
-    public User getUserByRole(Scanner keyboard){
+    public static User getUserByRole(Scanner keyboard){
         System.out.println("Digite el rol del usuario: ");
         var roleUser = keyboard.nextLine();
-        for(int i = 0; i < User.users.length; i++){
-            if(User.users[i].getRole().equals(UserRole.ADMIN)){
-                return User.users[i];
+        for(int i = 0; i < arrayUsers.length; i++){
+            if(arrayUsers[i].getRole().equals(UserRole.ADMIN)){
+                return arrayUsers[i];
             }
         }
         return null;
     }
 
-    public void getInfoNameAndHistoryUser(User user){
+    public static void getInfoNameAndHistoryUser(User user){
         var nameUser = user.getUsername();
         var history = user.getActions();
         System.out.printf("El usuario %s, ha realizado las acciones: ", nameUser);
         System.out.println(Arrays.toString(history));
     }
 
-    public void getAllHistoryByUsersArray(){
-        for(int i = 0; i < User.users.length; i++){
+    public static void getAllHistoryByUsersArray(){
+        for(int i = 0; i < arrayUsers.length; i++){
             System.out.printf("Acciones del usuario %d", i+1);
-            System.out.println(Arrays.toString(User.users[i].getActions()));
+            System.out.println(Arrays.toString(arrayUsers[i].getActions()));
             System.out.printf("Finalizaron las acciones del usuario %d", i+1);
         }
     }
 
-    public void getAllHistoryByGuestUsers(){
-        for(int i = 0; i < User.users.length; i++){
-            if(User.users[i].getRole() == UserRole.GUEST){
+    public static void getAllHistoryByGuestUsers(){
+        for(int i = 0; i < arrayUsers.length; i++){
+            if(arrayUsers[i].getRole() == UserRole.GUEST){
                 System.out.printf("Acciones del usuario %d", i+1);
-                System.out.println(Arrays.toString(User.users[i].getActions()));
+                System.out.println(Arrays.toString(arrayUsers[i].getActions()));
                 System.out.printf("Finalizaron las acciones del usuario %d", i+1);
             }
         }
     }
 
-    public void getAllLockedUsers(){
+    public static void getAllLockedUsers(){
         System.out.println("Lista de usuarios bloqueados: ");
-        for(int i = 0; i < User.users.length; i++){
-            if(User.users[i].getState() == UserState.LOCKED){
-                var usernameLocked = User.users[i].getUsername();
+        for(int i = 0; i < arrayUsers.length; i++){
+            if(arrayUsers[i].getState() == UserState.LOCKED){
+                var usernameLocked = arrayUsers[i].getUsername();
                 System.out.println(usernameLocked);
             }
         }
     }
-
 }

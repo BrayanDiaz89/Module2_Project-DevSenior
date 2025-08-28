@@ -1,15 +1,18 @@
 package view.entitie;
 
-import model.entities.User;
+public class MenuApp {
 
-public class MenuAdmin {
-    public static String menuAdmin = """
+    public static String menuApp = """
             |* Panel de administrador *|
             1) Gestión de mi cuenta.
             2) Gestión de usuarios.
             3) Cerrar sesión
             """;
-    public static String subMenuPersonalAccountAdmin = """
+    public static String subMenuUserManagementByOthersUsers = """
+            1) Ver lista de usuarios
+            2) Regresar
+            """;
+    public static String subMenuPersonalAccount = """
             1) Ver mis datos
             2) Editar mis datos
             3) Ver mi historial de actividad
