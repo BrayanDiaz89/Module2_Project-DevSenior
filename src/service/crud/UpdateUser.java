@@ -2,6 +2,7 @@ package service.crud;
 
 import model.entities.User;
 import model.entities.UserActionSys;
+import model.enums.UserRole;
 import service.SelectUser;
 
 import java.util.Scanner;
@@ -47,10 +48,18 @@ public class UpdateUser implements SelectUser {
         Integer decisionUser = keyboard.nextInt();
         return switch (decisionUser) {
             case 1 -> updateNameUser(userUpdate, keyboard);
-            case 2 -> updatePassword(userUpdate, keyboard);
+            case 2 -> {
+                if(!userUpdate.getRole().equals(UserRole.GUEST)) {
+                   yield updatePassword(userUpdate, keyboard);
+                }
+                yield "Eres usuario invitado, no tienes contraseña.";
+            }
             case 3 -> {
-                updateNameUser(userUpdate, keyboard);
-                yield updatePassword(userUpdate, keyboard);
+                if(!userUpdate.getRole().equals(UserRole.GUEST)) {
+                    updateNameUser(userUpdate, keyboard);
+                    yield updatePassword(userUpdate, keyboard);
+                }
+                yield "Eres usuario invitado, no tienes contraseña.";
             }
             case 4 -> {
                 user.updateActionsUser(user, "Se canceló la operación de actualización.");

@@ -37,6 +37,13 @@ public class MenuApp {
             1) Buscar por username
             2) Buscar por ID
             3) Buscar por rol (Obtener el primero encontrado)
+            4) Regresar
+            """;
+
+    public static String optionSearchUserByRol = """
+            1) ADMIN
+            2) STANDARD
+            3) GUEST
             """;
 
 }

@@ -3,6 +3,8 @@ package model.entities;
 import model.enums.UserRole;
 import model.enums.UserState;
 
+import java.util.Arrays;
+
 public class User {
 
     private String first_name;
@@ -75,6 +77,7 @@ public class User {
         this.first_name = first_name;
         this.last_name = last_name;
         id++;
+        username = "guest"+id;
         actions[0] = new UserActionSys(String.format("Se ha creado el usuario invitado %s", first_name));
     }
 
@@ -110,5 +113,27 @@ public class User {
 
     public void assignedToUserRoleAdmin(){
         this.role = UserRole.ADMIN;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("""
+                Datos de usuario:
+                Id: %d
+                Nombre completo: %s %s
+                Username: %s
+                Role: %s
+                Actions: %s
+                """, id, first_name, last_name, username, role.toString(), Arrays.toString(actions));
+    }
+
+    public String userGuest() {
+        return String.format("""
+                Datos de usuario:
+                Nombre completo: %s %s
+                Username: %s
+                Role: %s
+                Actions: %s
+                """, first_name, last_name, username, role.toString(), Arrays.toString(actions));
     }
 }

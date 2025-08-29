@@ -1,6 +1,7 @@
 package service.logicBussines;
 
 import model.entities.User;
+import model.entities.UserActionSys;
 import model.enums.UserRole;
 import model.enums.UserState;
 
@@ -11,6 +12,10 @@ import java.util.Scanner;
 public class ArrayUsers {
 
     private static final User[] arrayUsers = User.users;
+
+    public static UserActionSys[] getActionsFromOneAccount(User user){
+        return user.getActions();
+    }
 
     public static void getAllUsers(){
         System.out.println("La lista de todos los usuarios registrados, con sus datos completos es: ");
@@ -63,18 +68,18 @@ public class ArrayUsers {
 
     public static void getAllHistoryByUsersArray(){
         for(int i = 0; i < arrayUsers.length; i++){
-            System.out.printf("Acciones del usuario %d", i+1);
+            System.out.printf("Acciones del usuario %s %s", arrayUsers[i].getFirst_name(), arrayUsers[i].getLast_name());
             System.out.println(Arrays.toString(arrayUsers[i].getActions()));
-            System.out.printf("Finalizaron las acciones del usuario %d", i+1);
+            System.out.printf("Finalizaron las acciones del usuario %s %s", arrayUsers[i].getFirst_name(), arrayUsers[i].getLast_name());
         }
     }
 
     public static void getAllHistoryByGuestUsers(){
         for(int i = 0; i < arrayUsers.length; i++){
             if(arrayUsers[i].getRole() == UserRole.GUEST){
-                System.out.printf("Acciones del usuario %d", i+1);
+                System.out.printf("Acciones del usuario %s %s", arrayUsers[i].getFirst_name(), arrayUsers[i].getLast_name());
                 System.out.println(Arrays.toString(arrayUsers[i].getActions()));
-                System.out.printf("Finalizaron las acciones del usuario %d", i+1);
+                System.out.printf("Finalizaron las acciones del usuario %s %s", arrayUsers[i].getFirst_name(), arrayUsers[i].getLast_name());
             }
         }
     }
