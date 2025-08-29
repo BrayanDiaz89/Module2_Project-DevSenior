@@ -43,11 +43,11 @@ public class ArrayUsers {
         return null;
     }
 
-    public static User getUserByRole(Scanner keyboard){
-        System.out.println("Digite el rol del usuario: ");
-        var roleUser = keyboard.nextLine();
+    public static User getUserByRole(UserRole roleUser){
         for(int i = 0; i < arrayUsers.length; i++){
-            if(arrayUsers[i].getRole().equals(UserRole.ADMIN)){
+            var role = arrayUsers[i].getRole();
+            if(role.equals(roleUser)){
+                System.out.println("Usuario con el rol mencionado: ");
                 return arrayUsers[i];
             }
         }

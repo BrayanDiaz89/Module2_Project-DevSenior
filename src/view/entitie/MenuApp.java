@@ -3,7 +3,7 @@ package view.entitie;
 public class MenuApp {
 
     public static String menuApp = """
-            |* Panel de administrador *|
+            |* Panel de usuario *|
             1) Gestión de mi cuenta.
             2) Gestión de usuarios.
             3) Cerrar sesión
@@ -20,7 +20,7 @@ public class MenuApp {
             """;
 
     public static String subMenuUserManagementByAdmin = """
-            1) Ver lista de usuarios
+            1) Ver lista de usuarios (Inf. Completa)
             2) Buscar usuario (Obtener Inf. Completa)
             3) Buscar usuario (Obtener nombre y historial)
             4) Editar datos de un usuario
