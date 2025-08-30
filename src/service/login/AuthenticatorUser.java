@@ -22,6 +22,7 @@ public class AuthenticatorUser implements SelectUser {
                 var validateAuth = getMethodPasswordIsCorrect.thePasswordIsCorrect(3, user, keyboard);
                 if (validateAuth) {
                     System.out.printf("Bienvenido %s, que gusto tenerte por aquí de nuevo!.", user.getUsername());
+                    user.updateActionsUser(user, String.format("%s ha iniciado sesión.", user.getUsername()));
                     return user;
                 } else {
                     System.out.println("No ha sido posible iniciar sesión! :(. Valida si tú usuario ha sido bloqueado.");

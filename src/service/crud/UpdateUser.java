@@ -105,12 +105,12 @@ public class UpdateUser implements SelectUser {
                 numberOfAttempsUser++;
                 System.out.printf("Contraseña incorrecta, le quedan %d intentos", (numberOfAttempsMax - numberOfAttempsUser));
             } else {
-                user.updateActionsUser(user, "Se logeó correctamente en el sistema.");
+                user.updateActionsUser(user, String.format("%s se logeó correctamente en el sistema.", user.getUsername()));
                 System.out.println("Contraseña correcta, puede continuar.");
                 return true;
             }
         } while (numberOfAttempsUser < numberOfAttempsMax);
-        user.updateActionsUser(user, "Cuenta bloqueada por superar número máximo de intentos en validación de contraseña.");
+        user.updateActionsUser(user, String.format("%s Ha bloqueado su cuenta bloqueada por superar número máximo de intentos en validación de contraseña.", user.getUsername()));
         user.lockUser();
         System.out.println("Ha superado la cantidad máxima de intentos, el usuario ha sido bloqueado por seguridad.");
         return false;

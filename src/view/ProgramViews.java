@@ -1,6 +1,7 @@
 package view;
 
 import model.entities.User;
+import model.entities.UserActionSys;
 import model.enums.UserRole;
 import service.UserService;
 import service.logicBussines.ArrayUsers;
@@ -11,6 +12,8 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class ProgramViews {
+
+    public ProgramViews(){}
 
     private UserService service = new UserService();
 
@@ -27,6 +30,7 @@ public class ProgramViews {
         System.out.println(menuMain);
         boolean exit = false;
         Integer decisionUser = keyboard.nextInt();
+        keyboard.nextLine();
         do {
             switch (decisionUser) {
                 case 1:
@@ -46,7 +50,7 @@ public class ProgramViews {
                     System.out.println("Opción no válida, intente nuevamente.");
                     break;
             }
-        } while (exit);
+        } while (!exit);
     }
 
 
@@ -91,18 +95,22 @@ public class ProgramViews {
                                 switch (optionUser){
                                     case 1:
                                         ArrayUsers.getAllUsers();
+                                        user.updateActionsUser(user, String.format("%s ha obtenido el historial de todos los usuarios.", user.getUsername()));
                                         break;
                                     case 2:
                                         var userConsult = getUserInFlowProgram(keyboard);
                                         if(userConsult.getRole().equals(UserRole.ADMIN) || userConsult.getRole().equals(UserRole.GUEST)){
                                             System.out.println(userConsult);
+                                            user.updateActionsUser(user, String.format("%s ha obtenido la información completa del usuario %s", user.getUsername(), userConsult.getUsername()));
                                         } else{
                                             System.out.println(userConsult.userGuest());
+                                            user.updateActionsUser(user, String.format("%s ha obtenido la información completa del usuario %s", user.getUsername(), userConsult.getUsername()));
                                         }
                                         break;
                                     case 3:
                                         userConsult = getUserInFlowProgram(keyboard);
                                         ArrayUsers.getInfoNameAndHistoryUser(userConsult);
+                                        user.updateActionsUser(user, String.format("%s ha obtenido el nombre y el historial del usuario %s", user.getUsername(), userConsult.getUsername()));
                                         break;
                                     case 4:
                                         service.updateUserService(keyboard);
@@ -112,20 +120,25 @@ public class ProgramViews {
                                         break;
                                     case 6:
                                         ArrayUsers.getAllHistoryByUsersArray();
+                                        user.updateActionsUser(user, String.format("%s ha obtenido el historial de todos los usuarios registrados.", user.getUsername()));
                                         break;
                                     case 7:
                                         ArrayUsers.getAllHistoryByGuestUsers();
+                                        user.updateActionsUser(user, String.format("%s ha obtenido el historial de todos los usuarios invitados.", user.getUsername()));
                                         break;
                                     case 8:
                                         userConsult = getUserInFlowProgram(keyboard);
                                         userConsult.lockUser();
+                                        user.updateActionsUser(user, String.format("%s ha bloqueado a el usuario: | %s |", user.getUsername(), userConsult.getUsername()));
                                         break;
                                     case 9:
                                         userConsult = getUserInFlowProgram(keyboard);
                                         userConsult.assignedToUserRoleAdmin();
+                                        user.updateActionsUser(user, String.format("%s le ha asignado rol admin a el usuario | %s |", user.getUsername(), userConsult.getUsername()));
                                         break;
                                     case 10:
                                         ArrayUsers.getAllLockedUsers();
+                                        user.updateActionsUser(user, String.format("%s ha consultado todos los usuarios bloqueados.", user.getUsername()));
                                         break;
                                     case 11:
                                         System.out.println("Regresando al menú principal...");
@@ -156,7 +169,7 @@ public class ProgramViews {
                         }
                     case 3:
                         System.out.println("Cerrando sesión...");
-                        initialProgramFlow(keyboard);
+                        user.updateActionsUser(user, String.format("%s ha cerrado sesión.", user.getUsername()));
                         exit = true;
                         break;
                     default:
@@ -176,7 +189,8 @@ public class ProgramViews {
             case 1:
                 System.out.println("Digite el nombre del usuario: ");
                 String username = keyboard.nextLine();
-                return ArrayUsers.getUserByUsername(username);
+                var user = ArrayUsers.getUserByUsername(username);
+                System.out.println(user);
             case 2:
                 System.out.println("Digite el id del usuario: ");
                 Integer idUser = keyboard.nextInt();

@@ -38,7 +38,9 @@ public class CreateUser {
 
     public Boolean validateUsernameExists(String username){
         for(int i = 0; i < User.users.length; i++){
-            if (User.users[i].getUsername().equalsIgnoreCase(username)){
+            if(User.users.length == 0){
+                return false;
+            }else if(User.users[i].getUsername().equalsIgnoreCase(username)){
                 return true;
             }
         }
