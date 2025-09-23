@@ -1,9 +1,12 @@
 package service;
 
+import com.sun.security.jgss.GSSUtil;
 import model.ActionUser;
 import model.User;
 import model.dto.UserActionsDTO;
+import model.dto.UserCompletedDTO;
 import model.enums.RoleUser;
+import model.enums.StateUser;
 
 import java.util.Scanner;
 
@@ -97,6 +100,46 @@ public class UserAdminService {
             return new UserActionsDTO(user.getUserName(), user.getActions());
         }
         return null;
+    }
+
+    public UserCompletedDTO[] getAllUsersLocked(User user){
+        var users = User.users;
+        UserCompletedDTO[] usersCompetedInfo = new UserCompletedDTO[users.length];
+        System.out.println("Obteniendo a todos los usuarios bloqueados.");
+        for(int i = 0; i < users.length; i++){
+            if(users[i].getState() != StateUser.ACTIVE) {
+                String nameCompleted = users[i].getFirst_name() + users[i].getLast_name();
+                usersCompetedInfo[i] = new UserCompletedDTO(users[i].getId(),
+                        nameCompleted,
+                        users[i].getUserName(),
+                        users[i].getUserRole(),
+                        users[i].getState());
+            }
+        }
+        if(usersCompetedInfo[0] == null){
+            System.out.println("No existen usuarios bloqueados por el momento.");
+        }
+        return usersCompetedInfo;
+    }
+
+    public UserCompletedDTO[] getAllUsersActive(User user){
+        var users = User.users;
+        UserCompletedDTO[] usersCompetedInfo = new UserCompletedDTO[users.length];
+        System.out.println("Obteniendo a todos los usuarios bloqueados.");
+        for(int i = 0; i < users.length; i++){
+            if(users[i].getState() == StateUser.ACTIVE) {
+                String nameCompleted = users[i].getFirst_name() + users[i].getLast_name();
+                usersCompetedInfo[i] = new UserCompletedDTO(users[i].getId(),
+                        nameCompleted,
+                        users[i].getUserName(),
+                        users[i].getUserRole(),
+                        users[i].getState());
+            }
+        }
+        if(usersCompetedInfo[0] == null){
+            System.out.println("No existen usuarios bloqueados por el momento.");
+        }
+        return usersCompetedInfo;
     }
 
 }
