@@ -14,6 +14,9 @@ public class UserAdminService {
 
     private UserGenericService service = new UserGenericService();
 
+    public UserAdminService() {
+    }
+
     public User createUserFromPanelAdmin(Scanner keyboard, User userAdmin){
         System.out.println("Digite el primer nombre: ");
         String firstName = keyboard.nextLine();
@@ -29,7 +32,11 @@ public class UserAdminService {
         String password = keyboard.nextLine();
         var role = selectRoleUser(keyboard);
         userAdmin.insertAction(new ActionUser(String.format("Se creó el usuario %s.", userName)));
-        return new User(firstName, lastName, userName, password, role);
+        User user = new User(firstName, lastName, userName, password, role);
+        if(service.insertUserInArray(user)){
+            System.out.println("Usuario guardado con éxito.");
+        }
+        return user;
     }
 
     public RoleUser selectRoleUser(Scanner keyboard){
@@ -77,7 +84,6 @@ public class UserAdminService {
             user.setLast_name(lastName);
             userAdmin.insertAction(new ActionUser(String.format("Se actualizó a el usuario %s.", user.getUserName())));
         }
-
         return user;
     }
 

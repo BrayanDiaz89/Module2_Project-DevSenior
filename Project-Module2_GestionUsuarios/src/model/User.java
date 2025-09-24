@@ -89,8 +89,9 @@ public class User {
     public RoleUser getUserRole() {
         return userRole;
     }
-    public void asignedToAdminRole(){
+    public void asignedToAdminRole(User user){
         userRole = RoleUser.ADMIN;
+        user.insertAction(new ActionUser(String.format("Se asignó rol admin a %s.", user.getUserName())));
     }
 
     public void setState(StateUser state){
